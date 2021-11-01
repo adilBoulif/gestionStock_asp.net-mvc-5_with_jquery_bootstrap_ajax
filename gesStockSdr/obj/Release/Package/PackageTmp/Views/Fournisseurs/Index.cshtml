@@ -1,0 +1,50 @@
+﻿@model IEnumerable<gesStockSdr.Models.Fournisseur>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<h2> <i class="fas fa-truck"></i> Gestion des Fournisseurs</h2>
+
+
+<p>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="@Url.Action("Create", "Fournisseurs" )" class="btn btn-success"> <i class="fas fa-plus-circle"></i> Ajouter</a>
+        </div>
+        <div class="col-md-4 ml-5">
+            @using (Html.BeginForm("Search", "Fournisseurs", FormMethod.Post))
+            {
+                <input name="nom" id="search" placeholder="Rechercher par nom" type="search" class="form-control" style="width: inherit; display: initial; ">
+
+                <button class="btn btn-primary mb-2" name="nom">
+                    <i class="fas fa-search fa-xs"></i>
+                </button>
+            }
+        </div>
+    </div>
+</p>
+<table class="table" id="employee_table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nom)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nom)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", "Fournisseurs",new { id = item.Id } )" class="btn btn-dark"> <i class="fas fa-edit"></i> Modifier</a>
+
+            <a href="@Url.Action("Delete", "Fournisseurs",new { id = item.Id } )" class="btn btn-danger"> <i class="fas fa-trash"></i> Supprimer</a>
+           
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<gesStockSdr.Models.GesUserViewModel>
+
+@{
+    ViewBag.Title = "indexUser";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<h2>  <i class="fas  fa-user"> </i> Gestion des Utilisateurss</h2>
+
+
+    <p>
+        <div class="row">
+            <div class="col-md-6">
+                <a href="@Url.Action("Register", "Account" )" class="btn btn-success"> <i class="fas fa-plus-circle"></i> Ajouter</a>
+            </div>
+            <div class="col-md-4 ml-5">
+                @using (Html.BeginForm("Search", "Historiques", FormMethod.Post))
+                {
+                    <input name="nom" id="search" placeholder="Rechercher par nom" type="search" class="form-control" style="width: inherit; display: initial; ">
+
+                    <button class="btn btn-primary mb-2" name="nom">
+                        <i class="fas fa-search fa-xs"></i>
+                    </button>
+                }
+            </div>
+        </div>
+    </p>
+    <table class="table" id="employee_table">
+        <tr>
+            <th>
+               utilisateur
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.role)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.role)
+                </td>
+                <td>
+                    <a href="@Url.Action("modifierUser", "Account",new { iduser = item.Id } )" class="btn btn-dark"> <i class="fas fa-edit"></i> Modifier</a>
+
+                    <a href="@Url.Action("DeleteUser", "Account",new { iduser = item.Id } )" class="btn btn-danger"> <i class="fas fa-trash"></i> Supprimer</a>
+                </td>
+            </tr>
+        }
+
+    </table>

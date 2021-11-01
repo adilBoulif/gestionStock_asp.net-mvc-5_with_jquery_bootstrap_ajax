@@ -1,0 +1,164 @@
+﻿@model gesStockSdr.Models.Commande
+@using gesStockSdr.Models;
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+
+    ApplicationDbContext db = new ApplicationDbContext();
+
+
+    var userId = User.Identity.GetUserId();
+    var infoUser = db.Users.Where(a => a.Id == userId).SingleOrDefault();
+}
+
+<h2> les details d'une commande</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <label> <i class="fas fa-id-badge"></i> Service</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.service.nom)
+        </dd>
+
+        <dt>
+            <label> <i class="fas fa-toggle-off"></i> Etat</label>
+        </dt>
+
+        <dd>
+            @if (Model.status == true)
+            {<span>validé</span>
+
+            }
+            else
+            {
+                <span> pas validé</span>
+            }
+
+
+        </dd>
+
+        <dt>
+            <label> <i class="fas fa-calendar-week"></i> Date</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date)
+        </dd>
+        <dd>
+            @if (infoUser.role.Equals("admin"))
+            {
+              if (Model.status == false)
+                {
+                    <div class="row">
+                        <div class="col-md-2">
+                            <form method="post" action="@Url.Action("valider", "Commandes")">
+
+
+
+                                <input id="idCom" name="idCom" type="hidden" value=@Model.Id />
+
+                                <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Valider</button>
+
+
+                            </form>
+                        </div>
+                        <div class="col-md-2">
+                            <form method="post" action="@Url.Action("DeleteConfirmed", "Commandes")">
+
+
+
+                                <input id="id" name="id" type="hidden" value=@Model.Id />
+
+                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Supprimer</button>
+
+
+                            </form>
+                        </div>
+                    </div>
+                } }
+            </dd>
+
+
+    </dl>
+
+
+    <label> <i class="fab fa-product-hunt"></i> Produits</label>
+
+    <table class="table">
+        <tr>
+            <th>
+                categorie
+            </th>
+            <th>
+                fournisseur
+            </th>
+            <th>
+                provenances
+            </th>
+            <th>
+                nom
+            </th>
+            <th>
+                num_article
+            </th>
+            <th>
+                quantite
+            </th>
+            <th>
+                date
+            </th>
+            <th>
+                quantite demandé
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var p in ViewData["panier"] as IList<Panier>)
+        {
+            <tr>
+                <td>
+                    @p.produits.category.nom
+                </td>
+                <td>
+                    @p.produits.fournisseur.nom
+                </td>
+                <td>
+                    @p.produits.provenances.nom
+                </td>
+                <td>
+                    @p.produits.nom
+                </td>
+                <td>
+                    @p.produits.num_article
+                </td>
+                <td>
+                    @p.produits.quantite
+                </td>
+                <td>
+                    @p.produits.date
+                </td>
+                <td>
+                    @p.quantite
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+
+
+
+
+</div>
+<p>
+
+
+    @Html.ActionLink("Retourner à la liste", "Index")
+</p>

@@ -1,0 +1,136 @@
+﻿@model IEnumerable<gesStockSdr.Models.Produits>
+
+@{
+    ViewBag.Title = "choisirPro";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<h2>  <i class="fab fa-product-hunt"></i> choisir les Produits</h2>
+<p>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="@Url.Action("Index", "Commandes" )" class="btn btn-success"><i class="fas fa-check"></i> Terminer</a>
+            <a href="@Url.Action("DeleteLastCommande", "Commandes" )" class="btn btn-danger"><i class="fas fa-times"></i> Annuler</a>
+        </div>
+        <div class="col-md-6  ">
+            @using (Html.BeginForm("searchParCateg", "Commandes", FormMethod.Post))
+            {
+
+                <input name="nom" id="search" placeholder="Rechercher par nom" type="search" class="form-control" style="width: inherit; display: initial; ">
+                @Html.DropDownList("categoryId", null, "Tous les Catégories", htmlAttributes: new { @class = "form-control", @style = "width: inherit; display: initial; " })
+                <button class="btn btn-primary mb-2" name="nom">
+                    <i class="fas fa-search fa-xs"></i>
+                </button>
+            }
+        </div>
+    </div>
+</p>
+
+<table id="employee_table" class="table mt-3" >
+    <tr>
+        <th>
+            <label>categorie</label>
+        </th>
+        <th>
+            <label>fournisseur</label>
+
+        </th>
+        <th>
+            <label>provenance</label>
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.num_article)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.quantite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.category.nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fournisseur.nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.provenances.nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.num_article)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                <input class="form-control" type="number" name=@item.Id id=@item.Id min="1" style=" width: 50px; height:40px" />
+
+            </td>
+            <td style="padding-left:10px;">
+
+                <button type="submit" class="btn btn-success" onclick="ajouteCmd( @item.Id );"><i class="fas fa-plus"></i></button>
+
+            </td>
+        </tr>
+
+    }
+</table>
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+    function ajouteCmd(id) {
+
+        var idPro = id;
+        var qty = $('#' + id).val();
+        console.log(qty);
+        console.log(idPro);
+
+        $.ajax({
+            url: "/Paniers/ajoProduit",
+
+            type: "POST",
+            data: { idPro: idPro, qty: qty }
+
+
+
+
+        });
+        alert(" le produit à été ajouté à la commande");
+
+    }
+
+
+
+
+
+
+</script>

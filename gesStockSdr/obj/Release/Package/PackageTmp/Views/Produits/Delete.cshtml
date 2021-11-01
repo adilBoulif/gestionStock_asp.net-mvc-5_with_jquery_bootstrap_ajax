@@ -1,0 +1,82 @@
+﻿@model gesStockSdr.Models.Produits
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+
+
+
+<h3>vous voulez vraiment supprimer cet element?</h3>
+<div>
+    <h4>Produits</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <label><i class="fas fa-box-open"></i> categorie</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.category.nom)
+        </dd>
+
+        <dt>
+            <label><i class="fas fa-truck"></i>  fournisseur</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fournisseur.nom)
+        </dd>
+
+        <dt>
+            <label><i class="fas fa-truck-loading"></i> provenance</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.provenances.nom)
+        </dd>
+
+        <dt>
+            <i class="fab fa-product-hunt"></i>      @Html.DisplayNameFor(model => model.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom)
+        </dd>
+
+        <dt>
+            <i class="fas fa-sort-numeric-up"></i>    @Html.DisplayNameFor(model => model.num_article)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.num_article)
+        </dd>
+
+        <dt>
+            <i class="fas fa-sort-numeric-up"></i>    @Html.DisplayNameFor(model => model.quantite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantite)
+        </dd>
+
+        <dt>
+            <i class="fas fa-calendar-week"></i>     @Html.DisplayNameFor(model => model.date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    <a href="@Url.Action("Index", "Produits" )" class="btn btn-primary">Annuler</a>
+</div>
+    }
+</div>

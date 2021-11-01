@@ -1,0 +1,68 @@
+﻿@model IEnumerable<gesStockSdr.Models.Commande>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<h2> <i class="fas fa-shopping-cart"></i> Gestion des commandes</h2>
+
+<p>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="@Url.Action("Create", "Commandes" )" class="btn btn-success"> <i class="fas fa-plus-circle"></i> Ajouter</a>
+        </div>
+        <div class="col-md-6  ">
+            @using (Html.BeginForm("searchByDate", "Commandes", FormMethod.Post))
+            {
+                <input name="nom" id="search" placeholder="Rechercher par nom" type="search" class="form-control" style="width: inherit; display: initial; ">
+                <input  type="date" name="date" id="date" class = "form-control" style = "width: inherit; display: initial; " />
+              
+                <button class="btn btn-primary mb-2" name="nom">
+                    <i class="fas fa-search fa-xs"></i>
+                </button>
+            }
+        </div>
+    </div>
+</p>
+<table class="table" id="employee_table">
+    <tr>
+        <th>
+           service
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.service.nom)
+        </td>
+        <td>
+            @if (item.status == true)
+            {<span>validé</span>
+
+            }
+            else
+            {
+                <span> pas validé</span>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            <a href="@Url.Action("Details", "Commandes",new { id = item.Id } )" class="btn btn-dark"> <i class="fas fa-eye"></i> Details</a>
+
+         
+        </td>
+    </tr>
+}
+
+</table>

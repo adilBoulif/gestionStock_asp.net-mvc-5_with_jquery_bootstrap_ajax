@@ -1,0 +1,43 @@
+﻿@model gesStockSdr.Models.Panier
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Panier</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.commande.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.commande.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.produits.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.produits.nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.quantite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantite)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,90 @@
+﻿@model gesStockSdr.Models.Produits
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+
+
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4> <i class="fas fa-plus"></i> Ajouter un Produit</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <i class="fab fa-product-hunt"></i>  @Html.LabelFor(model => model.nom, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.nom, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.nom, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <i class="fas fa-sort-numeric-up"></i> @Html.LabelFor(model => model.num_article, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input id="num_article" type="number" name="num_article" min="1" class="form-control" />
+
+            @Html.ValidationMessageFor(model => model.num_article, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <i class="fas fa-sort-numeric-up"></i> @Html.LabelFor(model => model.quantite, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input id="quantite" type="number"  name="quantite" min="1" class = "form-control"/>
+         
+            @Html.ValidationMessageFor(model => model.quantite, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <i class="fas fa-calendar-week"></i>  @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        <input class="form-control" type="date" name="date" id="date" />
+        @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
+    </div>
+    </div>
+
+    <div class="form-group">
+        <label><i class="fas fa-box-open"></i> categorie</label>
+      
+        <div class="col-md-10">
+            @Html.DropDownList("categoryId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.categoryId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label><i class="fas fa-truck-loading"></i> provenance</label>
+       
+        <div class="col-md-10">
+            @Html.DropDownList("provenancesId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.provenancesId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label><i class="fas fa-truck"></i>  fournisseur</label>
+        <div class="col-md-10">
+            @Html.DropDownList("fournisseurId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.fournisseurId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Ajouter" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Retourner à la liste", "Index")
+</div>
+

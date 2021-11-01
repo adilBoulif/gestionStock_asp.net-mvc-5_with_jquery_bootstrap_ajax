@@ -1,0 +1,88 @@
+﻿@model IEnumerable<gesStockSdr.Models.Historique>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+
+
+
+<p>
+    <div class="row">
+        <div class="col-md-6">
+            <h2> <i class="fas fa-history"></i>  Historiques des produits</h2>
+        </div>
+        <div class="col-md-4 ml-5">
+            @using (Html.BeginForm("Search", "Historiques", FormMethod.Post))
+            {
+                <input name="nom" id="search" placeholder="Rechercher par nom" type="search" class="form-control" style="width: inherit; display: initial; ">
+
+                <button class="btn btn-primary mb-2" name="nom">
+                    <i class="fas fa-search fa-xs"></i>
+                </button>
+            }
+        </div>
+    </div>
+</p>
+<table class="table" id="employee_table">
+    <tr>
+        <th>
+           categorie
+        </th>
+        <th>
+           fournisseur
+        </th>
+        <th>
+          provenance
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.num_article)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.quantite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+           utilisateur
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.category.nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fournisseur.nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.provenances.nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.num_article)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user.UserName)
+        </td>
+        <td>
+           
+        </td>
+    </tr>
+}
+
+</table>

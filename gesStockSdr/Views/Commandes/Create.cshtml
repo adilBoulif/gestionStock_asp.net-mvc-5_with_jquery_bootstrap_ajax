@@ -1,0 +1,47 @@
+﻿@model IEnumerable<gesStockSdr.Models.Produits>
+
+
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+      <h4> <i class="fas fa-plus"></i> Ajouter une Commande</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            <label> <i class="fas fa-id-badge"></i> Service</label>
+            <div class="col-md-10">
+               
+                @Html.DropDownList("serviceId", null, htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label> <i class="fas fa-calendar-week"></i> Date</label>
+            <div class="col-md-10">
+
+                <input class="form-control" type="date" name="date" id="date" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Ajouter" class="btn btn-success" onclick="affichPro( );" />
+            </div>
+        </div>
+    </div>
+}
+
+
